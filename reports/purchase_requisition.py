@@ -13,22 +13,26 @@ def generate_purchase_requisition(data):
     company_address = data.get("company_address","")
     pr_no = data.get("pr_no","")
     request_date = data.get("request_date","")
-    requested_by = data.get("requested_by","")
-    status = data.get("status","")
-    approved_by = data.get("approved_by","")
+    requested_by = data.get("requested_by", "")
+    department = data.get("department", "")
+    business_unit = data.get("business_unit", "")
+    status = data.get("status", "")
+    approved_by = data.get("approved_by", "")
     approved_date = data.get("approved_date","")
     items = data.get("items",[])
 
     qr_data = {
-        "company_name": company_name,
-        "company_address": company_address,
-        "pr_no": pr_no,
-        "request_date": request_date,
-        "requested_by": requested_by,
-        "status": status,
-        "approved_by": approved_by,
-        "approved_date": approved_date
-    }
+    "company_name": company_name,
+    "company_address": company_address,
+    "pr_no": pr_no,
+    "request_date": request_date,
+    "requested_by": requested_by,
+    "department": department,
+    "business_unit": business_unit,
+    "status": status,
+    "approved_by": approved_by,
+    "approved_date": approved_date
+}
 
     qr = qrcode.QRCode(version=2,
                        error_correction=qrcode.constants.ERROR_CORRECT_M,
@@ -68,13 +72,15 @@ def generate_purchase_requisition(data):
     story.append(Spacer(1,20))
 
     info = Table([
-        ["PR No", pr_no],
-        ["Request Date", request_date],
-        ["Requested By", requested_by],
-        ["Status", status],
-        ["Approved By", approved_by],
-        ["Approved Date", approved_date]
-    ], colWidths=[140,340])
+    ["PR No", pr_no],
+    ["Request Date", request_date],
+    ["Requested By", requested_by],
+    ["Department", department],
+    ["Business Unit", business_unit],
+    ["Status", status],
+    ["Approved By", approved_by],
+    ["Approved Date", approved_date]
+], colWidths=[140,340])
 
     info.setStyle(TableStyle([
         ("GRID",(0,0),(-1,-1),0.5,colors.grey),
