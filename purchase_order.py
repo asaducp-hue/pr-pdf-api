@@ -19,6 +19,10 @@ def generate_purchase_order(data):
         po_no=data.get("po_no", ""),
         po_date=data.get("po_date", ""),
         supplier=data.get("supplier", ""),
+        total_amount = float(data.get("total_amount",0) or 0)
+        discount_amount = float(data.get("discount_amount",0) or 0)
+        gst_amount = float(data.get("gst_amount",0) or 0)
+        net_amount = float(data.get("net_amount",0) or 0)
         items=data.get("items", []),
         logo_path=logo_path
     )

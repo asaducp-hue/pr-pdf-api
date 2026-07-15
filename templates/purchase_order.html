@@ -19,13 +19,9 @@
 
             <h2>{{company_name}}</h2>
 
-            <p>Street Address</p>
-
-            <p>City, ST, ZIP</p>
+            <p>{{company_address}}</p>
 
             <p>Phone : 000-000-0000</p>
-
-            <p>Fax : 000-000-0000</p>
 
         </div>
 
@@ -39,12 +35,12 @@
 
             <tr>
                 <td>Date</td>
-                <td>12/11/2023</td>
+                <td>{{po_date}}</td>
             </tr>
 
             <tr>
                 <td>P.O #</td>
-                <td>12356</td>
+                <td>{{po_no}}</td>
             </tr>
 
         </table>
@@ -124,17 +120,17 @@
     </td>
 
     <td>SUBTOTAL</td>
-    <td class="subtotal-value">$6,105.00</td>
+    <td class="subtotal-value">{{total_amount}}</td>
 </tr>
 
 <tr>
-    <td class="summary-label">TAX RATE</td>
-    <td class="summary-value">5%</td>
+    <td class="summary-label">DISCOUNT </td>
+    <td class="summary-value">{{discount_amount}}</td>
 </tr>
 
 <tr>
-    <td class="summary-label">TAX TOTAL</td>
-    <td class="summary-value">$305.25</td>
+    <td class="summary-label">GST TOTAL</td>
+    <td class="summary-value">{{gst_amount}}</td>
 </tr>
 
 <tr>
