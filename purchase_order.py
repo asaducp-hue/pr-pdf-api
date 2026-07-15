@@ -9,27 +9,31 @@ def generate_purchase_order(data):
     env = Environment(loader=FileSystemLoader("templates"))
     template = env.get_template("purchase_order.html")
 
+    # Paths
     base_dir = os.path.dirname(os.path.abspath(__file__))
     logo_path = os.path.join(base_dir, "static", "logo.png")
+    css_file = os.path.join(base_dir, "static", "purchase_order.css")
 
-    # Render HTML with data
+    # Amounts
+    total_amount = float(data.get("total_amount", 0) or 0)
+    discount_amount = float(data.get("discount_amount", 0) or 0)
+    gst_amount = float(data.get("gst_amount", 0) or 0)
+    net_amount = float(data.get("net_amount", 0) or 0)
+
+    # Render HTML
     html = template.render(
         company_name=data.get("company_name", ""),
         company_address=data.get("company_address", ""),
         po_no=data.get("po_no", ""),
         po_date=data.get("po_date", ""),
         supplier=data.get("supplier", ""),
-        total_amount = float(data.get("total_amount",0) or 0)
-        discount_amount = float(data.get("discount_amount",0) or 0)
-        gst_amount = float(data.get("gst_amount",0) or 0)
-        net_amount = float(data.get("net_amount",0) or 0)
+        total_amount=f"{total_amount:,.2f}",
+        discount_amount=f"{discount_amount:,.2f}",
+        gst_amount=f"{gst_amount:,.2f}",
+        net_amount=f"{net_amount:,.2f}",
         items=data.get("items", []),
         logo_path=logo_path
     )
-
-    # Paths
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    css_file = os.path.join(base_dir, "static", "purchase_order.css")
 
     # Generate PDF
     pdf = HTML(
@@ -39,7 +43,6 @@ def generate_purchase_order(data):
         stylesheets=[CSS(filename=css_file)]
     )
 
-    # Return PDF
     return Response(
         content=pdf,
         media_type="application/pdf",
