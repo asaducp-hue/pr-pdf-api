@@ -9,6 +9,9 @@ def generate_purchase_order(data):
     env = Environment(loader=FileSystemLoader("templates"))
     template = env.get_template("purchase_order.html")
 
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    logo_path = os.path.join(base_dir, "static", "logo.png")
+
     # Render HTML with data
     html = template.render(
         company_name=data.get("company_name", ""),
