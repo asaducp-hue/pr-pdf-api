@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Purchase Order</title>
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="left-header">
+
+        <div class="logo">
+            LOGO
+        </div>
+
+        <div class="company-info">
+
+            <h2>{{company_name}}</h2>
+
+            <p>Street Address</p>
+
+            <p>City, ST, ZIP</p>
+
+            <p>Phone : 000-000-0000</p>
+
+            <p>Fax : 000-000-0000</p>
+
+        </div>
+
+    </div>
+
+    <div class="right-header">
+
+        <h1>Purchase Order</h1>
+
+        <table class="po-info">
+
+            <tr>
+                <td>Date</td>
+                <td>12/11/2023</td>
+            </tr>
+
+            <tr>
+                <td>P.O #</td>
+                <td>12356</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="address-section">
+
+    <div class="vendor">
+
+        <div class="section-title">Vendor</div>
+
+        <p><strong>Company Name</strong></p>
+        <p>Street Address</p>
+        <p>City, ST, ZIP</p>
+        <p>Phone: 000-000-0000</p>
+
+    </div>
+
+    <div class="shipto">
+
+        <div class="section-title">Ship To</div>
+
+        <p><strong>Company Name</strong></p>
+        <p>Street Address</p>
+        <p>City, ST, ZIP</p>
+        <p>Phone: 000-000-0000</p>
+
+    </div>
+
+</div>
+<table class="shipping-table">
+    <tr>
+        <th>Shipping Terms</th>
+        <th>Shipping Method</th>
+        <th>Delivery Date</th>
+    </tr>
+    <tr>
+        <td>Net 30</td>
+        <td>Courier</td>
+        <td>15/07/2026</td>
+    </tr>
+</table>
+
+<table class="items-table">
+
+    <thead>
+        <tr>
+            <th style="width:7%;">Sr#</th>
+            <th style="width:26%;">Item Name</th>
+            <th style="width:27%;">Size</th>
+            <th style="width:8%;">Qty</th>
+            <th style="width:15;">Unit Price</th>
+            <th style="width:15%;">Amount</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td>1</td>
+            <td>HP LaserJet Printer</td>
+            <td>Description</td>
+            <td>4</td>
+            <td>45,000.00</td>
+            <td>90,000.00</td>
+        </tr>
+
+        <!-- Dynamic rows will go here later -->
+
+    </tbody>
+    <tr>
+    <td colspan="4" rowspan="6" class="comments-cell">
+        <div class="comments-title">Comments</div>
+    </td>
+
+    <td>SUBTOTAL</td>
+    <td class="subtotal-value">$6,105.00</td>
+</tr>
+
+<tr>
+    <td class="summary-label">TAX RATE</td>
+    <td class="summary-value">5%</td>
+</tr>
+
+<tr>
+    <td class="summary-label">TAX TOTAL</td>
+    <td class="summary-value">$305.25</td>
+</tr>
+
+<tr>
+    <td class="summary-label">SHIPPING</td>
+    <td class="summary-value">$1,000.00</td>
+</tr>
+
+<tr>
+    <td class="summary-label">OTHER</td>
+    <td class="summary-value">$0.00</td>
+</tr>
+
+<tr class="grand-total">
+    <td class="summary-label">TOTAL</td>
+    <td class="summary-value">$7,410.25</td>
+</tr>
+
+</table>
+<div class="signature-section">
+
+    <div class="signature-box">
+        <div class="signature-title">Authorized by</div>
+        <div class="signature-line"></div>
+    </div>
+
+    <div class="signature-box">
+        <div class="signature-title">Date</div>
+        <div class="signature-line"></div>
+    </div>
+
+</div>
+
+</body>
+</html>

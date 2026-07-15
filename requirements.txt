@@ -1,5 +1,7 @@
 fastapi
 uvicorn
-reportlab
 python-multipart
 qrcode[pil]
+Pillow
+jinja2
+weasyprint
