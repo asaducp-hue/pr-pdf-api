@@ -19,7 +19,8 @@ def generate_purchase_order(data):
         po_no=data.get("po_no", ""),
         po_date=data.get("po_date", ""),
         supplier=data.get("supplier", ""),
-        items=data.get("items", [])
+        items=data.get("items", []),
+        logo_path=logo_path
     )
 
     # Paths
