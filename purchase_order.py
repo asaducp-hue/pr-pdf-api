@@ -33,6 +33,7 @@ def generate_purchase_order(data):
         business_unit_address=data.get("business_unit_address", ""),
         business_unit_phone=data.get("business_unit_phone", ""),
         shipping_terms=data.get("shipping_terms", ""),
+        remarks=data.get("remarks", ""),
         shipping_amount=data.get("shipping_amount", ""),
         delivery_date=data.get("delivery_date", ""),
         other_amount=data.get("other_amount", ""),
