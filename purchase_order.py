@@ -20,6 +20,17 @@ def generate_purchase_order(data):
     gst_amount = float(data.get("gst_amount", 0) or 0)
     net_amount = float(data.get("net_amount", 0) or 0)
 
+    items = []
+    for i, item in enumerate(data.get("items", []), start=1):
+        items.append({
+        "sr_no": item.get("sr_no", i),
+        "item_name": item.get("item_name", ""),
+        "size": item.get("size", ""),
+        "quantity": item.get("quantity", ""),
+        "unit_price": f'{float(item.get("unit_price", 0) or 0):,.2f}',
+        "line_total": f'{float(item.get("line_total", 0) or 0):,.2f}'
+    })
+
     # Render HTML
     html = template.render(
         company_name=data.get("company_name", ""),
@@ -42,7 +53,7 @@ def generate_purchase_order(data):
         discount_amount=f"{discount_amount:,.2f}",
         gst_amount=f"{gst_amount:,.2f}",
         net_amount=f"{net_amount:,.2f}",
-        items=data.get("items", []),
+        items=items,
         logo_path=logo_path
     )
 

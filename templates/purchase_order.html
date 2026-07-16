@@ -100,14 +100,16 @@
 
     <tbody>
 
-        <tr>
-            <td>1</td>
-            <td>HP LaserJet Printer</td>
-            <td>Description</td>
-            <td>4</td>
-            <td>45,000.00</td>
-            <td>90,000.00</td>
-        </tr>
+        {% for item in items %}
+    <tr>
+        <td>{{ item.sr_no }}</td>
+        <td>{{ item.item_name }}</td>
+        <td>{{ item.size }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.unit_price }}</td>
+        <td>{{ item.line_total }}</td>
+    </tr>
+{% endfor %}
 
         <!-- Dynamic rows will go here later -->
 
