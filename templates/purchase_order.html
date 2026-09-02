@@ -1,166 +1,161 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Purchase Order</title>
+    <meta charset="UTF-8">
+    <title>Purchase Order</title>
 </head>
-
 <body>
 
-<div class="header">
+<!-- ================= HEADER ================= -->
+<div class="letterhead">
 
-    <div class="left-header">
-
-        <div class="logo">
-            <img src="file://{{ logo_path }}" alt="Company Logo">
-        </div>
-
-        <div class="company-info">
-
-            <h2>{{company_name}}</h2>
-
-            <p>{{company_address}}</p>
-
-            <p>Phone : {{company_phone}}</p>
-
-        </div>
-
+    <div class="office-block office-block-left">
+        <div class="office-label">Head Office:</div>
+        <div class="office-name">{{ company_name }}</div>
+        <p>{{ company_address }}</p>
+        <p>Ph: {{ company_phone }}</p>
+        {% if company_email %}<p>Email: {{ company_email }}</p>{% endif %}
+        {% if is_gst == "Yes" %}
+        <p>NTN: {{ company_ntn }}</p>
+        <p>STRN: {{ company_strn }}</p>
+        {% endif %}
     </div>
 
-    <div class="right-header">
+    <div class="office-block office-block-right">
+        <div class="office-label">Factory:</div>
+        <div class="office-name">{{ factory_name | default(company_name) }}</div>
+        <p>{{ factory_address | default(company_address) }}</p>
+        <p>Ph: {{ factory_phone | default(company_phone) }}</p>
+        {% if company_email %}<p>Email: {{ company_email }}</p>{% endif %}
+        {% if is_gst == "Yes" %}
+        <p>NTN: {{ factory_ntn | default(company_ntn) }}</p>
+        <p>STRN: {{ factory_strn | default(company_strn) }}</p>
+        {% endif %}
+    </div>
 
-        <h1>Purchase Order</h1>
-
-        <table class="po-info">
-
-            <tr>
-                <td>Date</td>
-                <td>{{po_date}}</td>
-            </tr>
-
-            <tr>
-                <td>P.O #</td>
-                <td>{{po_no}}</td>
-            </tr>
-
-        </table>
-
+    <div class="center-stack">
+        <div class="original-cell">({{ copy_label | default("Original") }})</div>
+        {% if logo_path %}<img src="{{ logo_path }}" alt="logo">{% endif %}
+        <div class="title-cell">Purchase Order</div>
     </div>
 
 </div>
 
-<div class="address-section">
+<!-- ================= PO INFORMATION ================= -->
+<div class="po-details">
 
-    <div class="vendor">
+    <div class="po-left">
+        <div class="row"><span class="label" style="text-decoration:underline;">Supplier Name:</span></div>
+        <div class="supplier-name">{{ supplier }}</div>
 
-        <div class="section-title">Vendor</div>
-
-        <p><strong>{{supplier}}</strong></p>
-        <p>{{supplier_address}}</p>
-        <p>Phone: {{supplier_phone}}</p>
-
+        {% if is_gst == "Yes" %}
+        <div class="row">
+            <span class="label">NTN:</span><span class="value">{{ supplier_ntn }}</span>
+        </div>
+        <div class="row">
+            <span class="label">STRN:</span><span class="value">{{ supplier_strn }}</span>
+        </div>
+        {% endif %}
+        <div class="row">
+            <span class="label">Attn:</span><span class="value">{{ attn }}</span>            
+        </div>
+        <div class="row">
+            <span class="label">Designation:</span><span class="value">{{ designation }}</span>
+        </div>
     </div>
 
-    <div class="shipto">
-
-        <div class="section-title">Ship To</div>
-
-        <p><strong>{{company_name}}</strong></p>
-        <p>{{business_unit_address}}</p>
-        <p>Phone: {{business_unit_phone}}</p>
-
+    <div class="po-right">
+        <div class="row"><span class="label">PO No:</span><span class="value">{{ po_no }}</span></div>
+        <div class="row"><span class="label">PO Date:</span><span class="value">{{ po_date }}</span></div>
+        <div class="row"><span class="label">Delivery Date:</span><span class="value">{{ delivery_date }}</span></div>
+        <div class="row"><span class="label">Ship To:-</span></div>
+        <div class="ship-to-value">{{ business_unit_address }}</div>
     </div>
 
 </div>
-<table class="shipping-table">
-    <tr>
-        <th>Shipping Terms</th>
-        <th>Shipping Method</th>
-        <th>Delivery Date</th>
-    </tr>
-    <tr>
-        <td>{{shipping_terms}}</td>
-        <td>{{shipping_method}}</td>
-        <td>{{delivery_date}}</td>
-    </tr>
-</table>
 
+<!-- ================= ITEMS ================= -->
 <table class="items-table">
-
     <thead>
         <tr>
-            <th style="width:7%;">Sr#</th>
-            <th style="width:26%;">Item Name</th>
-            <th style="width:27%;">Size</th>
-            <th style="width:8%;">Qty</th>
-            <th style="width:15;">Unit Price</th>
-            <th style="width:15%;">Amount</th>
+            <th class="col-no">No</th>
+            <th class="col-code">Item Code</th>
+            <th class="col-desc">Description</th>
+            <th class="col-unit">Unit</th>
+            <th class="col-qty">Quantity</th>
+            <th class="col-price">Price</th>
+            <th class="col-total">Total</th>
         </tr>
     </thead>
-
     <tbody>
-
         {% for item in items %}
-    <tr>
-        <td>{{ item.sr_no }}</td>
-        <td>{{ item.item_name }}</td>
-        <td>{{ item.size }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.unit_price }}</td>
-        <td>{{ item.line_total }}</td>
-    </tr>
-{% endfor %}
-
-        <!-- Dynamic rows will go here later -->
-
+        <tr>
+            <td class="col-no">{{ item.sr_no }}</td>
+            <td class="col-code">{{ item.item_code }}</td>
+            <td class="col-desc">
+                {{ item.item_name }}{% if item.size %} {{ item.size }}{% endif %}
+            </td>
+            <td class="col-unit">{{ item.unit }}</td>
+            <td class="col-qty">{{ item.quantity }}</td>
+            <td class="col-price">{{ item.unit_price }}</td>
+            <td class="col-total">{{ item.line_total }}</td>
+        </tr>
+        {% endfor %}
     </tbody>
-    <tr>
-    <td colspan="4" rowspan="6" class="comments-cell">
-        <div class="comments-title">{{remarks}}</div>
-    </td>
-
-    <td>SUBTOTAL</td>
-    <td class="subtotal-value">{{total_amount}}</td>
-</tr>
-
-<tr>
-    <td class="summary-label">DISCOUNT </td>
-    <td class="summary-value">{{discount_amount}}</td>
-</tr>
-
-<tr>
-    <td class="summary-label">GST TOTAL</td>
-    <td class="summary-value">{{gst_amount}}</td>
-</tr>
-
-<tr>
-    <td class="summary-label">SHIPPING</td>
-    <td class="summary-value">{{shipping_amount}}</td>
-</tr>
-
-<tr>
-    <td class="summary-label">OTHER</td>
-    <td class="summary-value">{{other_amount}}</td>
-</tr>
-
-<tr class="grand-total">
-    <td class="summary-label">TOTAL</td>
-    <td class="summary-value">{{net_amount}}</td>
-</tr>
-
 </table>
-<div class="signature-section">
 
-    <div class="signature-box">
-        <div class="signature-title">Authorized by</div>
-        <div class="signature-line"></div>
+<!-- ================= BOTTOM: PAYMENT/REMARKS + TOTALS ================= -->
+<div class="bottom-section">
+
+    <div class="bottom-left">
+        <div class="payment-terms-row">
+            <span class="pt-label">Payment Terms:</span>{{ payment_terms }}
+        </div>
+        <div class="remarks-label">Remarks:</div>
+        <div class="remarks-text">{{ remarks }}</div>
     </div>
 
-    <div class="signature-box">
-        <div class="signature-title">Date</div>
-        <div class="signature-line"></div>
+    <div class="bottom-right">
+        <table class="totals-table">
+            <tr>
+                <td class="t-label">Subtotal</td>
+                <td class="t-mid">{{ total_qty }}</td>
+                <td class="t-value">{{ total_amount }}</td>
+            </tr>
+            <tr>
+                <td class="t-label">Discount</td>
+                <td class="t-mid">{{''}}</td>
+                <td class="t-value">{{ discount_amount }}</td>
+            </tr>
+            {% if is_gst == "Yes" %}
+            <tr>
+                <td class="t-label">GST Total</td>
+                <td class="t-mid">{{ tax_label }}</td>
+                <td class="t-value">{{ gst_amount }}</td>
+            </tr>
+             {% endif %}
+             {% if is_gst == "No" %}
+             <tr>
+                <td class="t-label">Freight</td>
+                <td class="t-mid">{{''}}</td>
+                <td class="t-value">{{ shipping_amount }}</td>
+            </tr>
+            {% endif %}
+            <tr class="grand-row">
+                <td class="t-label" colspan="2">Total</td>
+                <td class="t-value">{{ net_amount }}</td>
+            </tr>
+        </table>
     </div>
 
+</div>
+
+<!-- ================= FOOTER ================= -->
+<div class="footer-line">
+    <span class="appr-title">Created By: </span> <span class="dashes">{{ created_by }}</span>
+    <span class="appr-title">Created By Designation: </span> <span class="dashes">{{ created_by_designation }}</span>
+    <span class="appr-title">Approved By: </span> <span class="dashes">{{approved_by}}</span>
+    <span class="appr-title">Approved By Designation: </span> <span class="dashes">{{approved_by_designation}}</span>
 </div>
 
 </body>

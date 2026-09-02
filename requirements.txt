@@ -4,4 +4,4 @@ python-multipart
 qrcode[pil]
 Pillow
 jinja2
-weasyprint
+playwright
