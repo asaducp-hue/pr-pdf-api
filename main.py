@@ -2,6 +2,7 @@ from fastapi import FastAPI, Body
 
 
 from purchase_order import generate_purchase_order
+from purchase_order_dup import generate_purchase_order_dup
 
 app = FastAPI()
 
@@ -18,6 +19,8 @@ def generate_pdf(data: dict = Body(...)):
 
     if invoice_type == "PURCHASE_ORDER":
         return generate_purchase_order(data)
+    elif invoice_type == "PURCHASE_ORDER_DUP":
+        return generate_purchase_order_dup(data)
 
     return {
         "error": "Unsupported invoice type"

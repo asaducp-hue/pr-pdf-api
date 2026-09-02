@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Order</title>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<div class="letterhead">
+
+    <div class="office-block office-block-left">
+        <div class="office-label">Head Office:</div>
+        <div class="office-name">{{ company_name }}</div>
+        <p>{{ company_address }}</p>
+        <p>Ph: {{ company_phone }}</p>
+        {% if company_email %}<p>Email: {{ company_email }}</p>{% endif %}
+        {% if is_gst == "Yes" %}
+        <p>NTN: {{ company_ntn }}</p>
+        <p>STRN: {{ company_strn }}</p>
+        {% endif %}
+    </div>
+
+    <div class="office-block office-block-right">
+        <div class="office-label">Factory:</div>
+        <div class="office-name">{{ factory_name | default(company_name) }}</div>
+        <p>{{ factory_address | default(company_address) }}</p>
+        <p>Ph: {{ factory_phone | default(company_phone) }}</p>
+        {% if company_email %}<p>Email: {{ company_email }}</p>{% endif %}
+        {% if is_gst == "Yes" %}
+        <p>NTN: {{ factory_ntn | default(company_ntn) }}</p>
+        <p>STRN: {{ factory_strn | default(company_strn) }}</p>
+        {% endif %}
+    </div>
+
+    <div class="center-stack">
+        <div class="original-cell">({{ copy_label | default("Original") }})</div>
+        {% if logo_path %}<img src="{{ logo_path }}" alt="logo">{% endif %}
+        <div class="title-cell">Purchase Order</div>
+    </div>
+
+</div>
+
+<!-- ================= PO INFORMATION ================= -->
+<div class="po-details">
+
+    <div class="po-left">
+        <div class="row"><span class="label" style="text-decoration:underline;">Supplier Name:</span></div>
+        <div class="supplier-name">{{ supplier }}</div>
+
+        {% if is_gst == "Yes" %}
+        <div class="row">
+            <span class="label">NTN:</span><span class="value">{{ supplier_ntn }}</span>
+        </div>
+        <div class="row">
+            <span class="label">STRN:</span><span class="value">{{ supplier_strn }}</span>
+        </div>
+        {% endif %}
+        <div class="row">
+            <span class="label">Attn:</span><span class="value">{{ attn }}</span>            
+        </div>
+        <div class="row">
+            <span class="label">Designation:</span><span class="value">{{ designation }}</span>
+        </div>
+    </div>
+
+    <div class="po-right">
+        <div class="row"><span class="label">PO No:</span><span class="value">{{ po_no }}</span></div>
+        <div class="row"><span class="label">PO Date:</span><span class="value">{{ po_date }}</span></div>
+        <div class="row"><span class="label">Delivery Date:</span><span class="value">{{ delivery_date }}</span></div>
+        <div class="row"><span class="label">Ship To:-</span></div>
+        <div class="ship-to-value">{{ business_unit_address }}</div>
+    </div>
+
+</div>
+
+<!-- ================= ITEMS ================= -->
+<table class="items-table">
+    <thead>
+        <tr>
+            <th class="col-no">No</th>
+            <th class="col-code">Item Code</th>
+            <th class="col-desc">Description</th>
+            <th class="col-unit">Unit</th>
+            <th class="col-qty">Quantity</th>
+            <th class="col-price">Price</th>
+            <th class="col-total">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td class="col-no">{{ item.sr_no }}</td>
+            <td class="col-code">{{ item.item_code }}</td>
+            <td class="col-desc">
+                {{ item.item_name }}{% if item.size %} {{ item.size }}{% endif %}
+            </td>
+            <td class="col-unit">{{ item.unit }}</td>
+            <td class="col-qty">{{ item.quantity }}</td>
+            <td class="col-price">{{ item.unit_price }}</td>
+            <td class="col-total">{{ item.line_total }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- ================= BOTTOM: PAYMENT/REMARKS + TOTALS ================= -->
+<div class="bottom-section">
+
+    <div class="bottom-left">
+        <div class="payment-terms-row">
+            <span class="pt-label">Payment Terms:</span>{{ payment_terms }}
+        </div>
+        <div class="remarks-label">Remarks:</div>
+        <div class="remarks-text">{{ remarks }}</div>
+    </div>
+
+    <div class="bottom-right">
+        <table class="totals-table">
+            <tr>
+                <td class="t-label">Subtotal</td>
+                <td class="t-mid">{{ total_qty }}</td>
+                <td class="t-value">{{ total_amount }}</td>
+            </tr>
+            <tr>
+                <td class="t-label">Discount</td>
+                <td class="t-mid">{{''}}</td>
+                <td class="t-value">{{ discount_amount }}</td>
+            </tr>
+            {% if is_gst == "Yes" %}
+            <tr>
+                <td class="t-label">GST Total</td>
+                <td class="t-mid">{{ tax_label }}</td>
+                <td class="t-value">{{ gst_amount }}</td>
+            </tr>
+             {% endif %}
+             {% if is_gst == "No" %}
+             <tr>
+                <td class="t-label">Freight</td>
+                <td class="t-mid">{{''}}</td>
+                <td class="t-value">{{ shipping_amount }}</td>
+            </tr>
+            {% endif %}
+            <tr class="grand-row">
+                <td class="t-label" colspan="2">Total</td>
+                <td class="t-value">{{ net_amount }}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<div class="footer-line">
+    <span class="appr-title">Created By: </span> <span class="dashes">{{ created_by }}</span>
+    <span class="appr-title">Created By Designation: </span> <span class="dashes">{{ created_by_designation }}</span>
+    <span class="appr-title">Approved By: </span> <span class="dashes">{{approved_by}}</span>
+    <span class="appr-title">Approved By Designation: </span> <span class="dashes">{{approved_by_designation}}</span>
+</div>
+
+</body>
+</html>
