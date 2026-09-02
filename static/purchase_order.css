@@ -338,6 +338,7 @@ body {
     font-size: 8.5px;
     text-align: left;
     white-space: nowrap;
+    margin-right: 3px;
 }
 
 .footer-line span.appr-title {
@@ -346,6 +347,7 @@ body {
 
 .footer-line span.dashes {
     letter-spacing: 1px;
+    margin-right: 20px;
 }
 
 
