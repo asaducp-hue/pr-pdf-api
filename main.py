@@ -5,6 +5,7 @@ from purchase_order import generate_purchase_order
 from purchase_order_dup import generate_purchase_order_dup
 from purchase_requisition import generate_purchase_requisition
 from grn import generate_grn
+from igp import generate_igp
 
 app = FastAPI()
 
@@ -27,6 +28,8 @@ def generate_pdf(data: dict = Body(...)):
         return generate_purchase_requisition(data)
     elif invoice_type == "GRN":
             return generate_grn(data)
+    elif invoice_type == "IGP":
+                return generate_igp(data)
 
     return {
         "error": "Unsupported invoice type"
