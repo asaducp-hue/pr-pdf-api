@@ -46,14 +46,14 @@
 
     <div class="po-left">
         <div class="row"><span class="label" style="text-decoration:underline;">Customer Name:</span></div>
-        <div class="supplier-name">{{ company_name }}</div>
+        <div class="supplier-name">{{ customer_name }}</div>
 
         {% if is_gst == "Yes" %}
         <div class="row">
-            <span class="label">NTN:</span><span class="value">{{ company_ntn }}</span>
+            <span class="label">NTN:</span><span class="value">{{ customer_ntn }}</span>
         </div>
         <div class="row">
-            <span class="label">STRN:</span><span class="value">{{ company_strn }}</span>
+            <span class="label">STRN:</span><span class="value">{{ customer_strn }}</span>
         </div>
         {% endif %}
         <div class="row">
