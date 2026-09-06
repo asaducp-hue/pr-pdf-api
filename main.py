@@ -8,6 +8,7 @@ from grn import generate_grn
 from igp import generate_igp
 from quotation import generate_quotation
 from quotation_dup import generate_quotation_dup
+from sales_order import generate_sales_order
 
 app = FastAPI()
 
@@ -36,6 +37,8 @@ def generate_pdf(data: dict = Body(...)):
         return generate_quotation(data)
     elif invoice_type == "SALES_QUOTATION_DUP":
         return generate_quotation_dup(data)
+    elif invoice_type == "SALES_ORDER":
+            return generate_sales_order(data)
 
     return {
         "error": "Unsupported invoice type"
