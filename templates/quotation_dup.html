@@ -93,7 +93,7 @@
             <td class="col-no">{{ item.sr_no }}</td>
             <td class="col-code">{{ item.item_code }}</td>
             <td class="col-desc">
-                {{ item.item_name }}{% if item.size %} {{ item.size }}{% endif %}
+                {{ item.item_name }}{% if item.size %} {{ item.size | replace('\n', '<br>') | safe }}{% endif %}
             </td>
             <td class="col-unit">{{ item.unit }}</td>
             <td class="col-qty">{{ item.quantity }}</td>
@@ -112,14 +112,19 @@
             <span class="pt-label"></span>
         </div>
         <div class="remarks-label">Term & Condition:</div>
-        <div class="remarks-text">{{ remarks }}</div>
+        <div class="remarks-text">{{ remarks | replace('\n', '<br>') | safe }}</div>
     </div>
 
     <div class="bottom-right">
         <table class="totals-table">
             <tr>
+                {% if is_gst == "No" %}
                 <td class="t-label">Subtotal</td>
-                <td class="t-mid">{{ total_qty }}</td>
+                {% endif %}
+                {% if is_gst == "Yes" %}
+                <td class="t-label">Total Exclusive GST</td>
+                {% endif %}
+                <td class="t-mid"></td>
                 <td class="t-value">{{ total_amount }}</td>
             </tr>
             <tr>
@@ -142,7 +147,12 @@
             </tr>
             {% endif %}
             <tr class="grand-row">
+                {% if is_gst == "No" %}
                 <td class="t-label" colspan="2">Total</td>
+                 {% endif %}
+                 {% if is_gst == "Yes" %}
+                <td class="t-label" colspan="2">Total Inclusive GST</td>
+                 {% endif %}
                 <td class="t-value">{{ net_amount }}</td>
             </tr>
         </table>
