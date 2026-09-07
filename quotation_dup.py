@@ -207,6 +207,9 @@ def generate_quotation_dup(data):
         created_by_designation=data.get(
             "created_by_designation", ""
         ),
+        created_by_phone=data.get(
+            "created_by_phone", ""
+        ),
 
         updated_by=data.get(
             "updated_by", ""
