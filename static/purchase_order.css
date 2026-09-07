@@ -335,19 +335,31 @@ body {
     left: 0;
     right: 0;
     width: 100%;
+    display: table;
+    table-layout: fixed;
     font-size: 8.5px;
     text-align: left;
-    white-space: nowrap;
-    margin-right: 3px;
+}
+
+.footer-block {
+    display: table-cell;
+    width: 50%;
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.footer-row {
+    margin: 1px 0;
 }
 
 .footer-line span.appr-title {
     font-weight: bold;
+    display: inline-block;
+    min-width: 75px;
 }
 
 .footer-line span.dashes {
     letter-spacing: 1px;
-    margin-right: 20px;
 }
 
 
