@@ -118,7 +118,12 @@
     <div class="bottom-right">
         <table class="totals-table">
             <tr>
+                {% if is_gst == "No" %}
                 <td class="t-label">Subtotal</td>
+                {% endif %}
+                {% if is_gst == "Yes" %}
+                <td class="t-label">Total Exclusive GST</td>
+                {% endif %}
                 <td class="t-mid">{{ total_qty }}</td>
                 <td class="t-value">{{ total_amount }}</td>
             </tr>
@@ -142,7 +147,12 @@
             </tr>
             {% endif %}
             <tr class="grand-row">
+                {% if is_gst == "No" %}
                 <td class="t-label" colspan="2">Total</td>
+                 {% endif %}
+                 {% if is_gst == "Yes" %}
+                <td class="t-label" colspan="2">Total Inclusive GST</td>
+                 {% endif %}
                 <td class="t-value">{{ net_amount }}</td>
             </tr>
         </table>
