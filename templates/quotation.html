@@ -93,7 +93,7 @@
             <td class="col-no">{{ item.sr_no }}</td>
             <td class="col-code">{{ item.item_code }}</td>
             <td class="col-desc">
-                {{ item.item_name }}{% if item.size %} {{ item.size }}{% endif %}
+                {{ item.item_name }}{% if item.size %} {{ item.size | replace('\n', '<br>') | safe }}{% endif %}
             </td>
             <td class="col-unit">{{ item.unit }}</td>
             <td class="col-qty">{{ item.quantity }}</td>
