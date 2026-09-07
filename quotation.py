@@ -239,8 +239,8 @@ def generate_quotation(data):
         # Remarks
         # -----------------------------------------------------
         remarks=data.get(
-            "remarks", ""
-        ),
+    "remarks", ""
+       ).replace("\r\n", "\n").replace("\r", "\n"),
 
         # -----------------------------------------------------
         # Items
