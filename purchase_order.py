@@ -94,6 +94,9 @@ def generate_purchase_order(data):
         is_gst=data.get("is_gst", ""),
         created_by=data.get("created_by", ""),
         created_by_designation=data.get("created_by_designation", ""),
+         created_by_phone=data.get(
+                    "created_by_phone", ""
+                ),
         approved_by=data.get("approved_by", ""),
         approved_by_designation=data.get("approved_by_designation", ""),
         ceo=data.get("ceo", ""),
