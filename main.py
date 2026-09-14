@@ -13,6 +13,7 @@ from sales_order_dup import generate_sales_order_dup
 from sales_invoice import generate_sales_invoice
 from sales_invoice_dup import generate_sales_invoice_dup
 from job_order import generate_job_order
+from ogp import generate_ogp
 
 app = FastAPI()
 
@@ -37,6 +38,8 @@ def generate_pdf(data: dict = Body(...)):
         return generate_grn(data)
     elif invoice_type == "IGP":
         return generate_igp(data)
+    elif invoice_type == "OGP":
+            return generate_ogp(data)
     elif invoice_type == "SALES_QUOTATION":
         return generate_quotation(data)
     elif invoice_type == "SALES_QUOTATION_DUP":
