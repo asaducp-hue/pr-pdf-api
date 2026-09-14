@@ -12,6 +12,7 @@ from sales_order import generate_sales_order
 from sales_order_dup import generate_sales_order_dup
 from sales_invoice import generate_sales_invoice
 from sales_invoice_dup import generate_sales_invoice_dup
+from job_order import generate_job_order
 
 app = FastAPI()
 
@@ -43,11 +44,13 @@ def generate_pdf(data: dict = Body(...)):
     elif invoice_type == "SALES_ORDER":
             return generate_sales_order(data)
     elif invoice_type == "SALES_ORDER_DUP":
-                return generate_sales_order_dup(data)
+            return generate_sales_order_dup(data)
     elif invoice_type == "SALES_INVOICE":
-                    return generate_sales_invoice(data)
+            return generate_sales_invoice(data)
     elif invoice_type == "SALES_INVOICE_DUP":
-                        return generate_sales_invoice_dup(data)
+            return generate_sales_invoice_dup(data)
+    elif invoice_type == "JOB_ORDER":
+            return generate_job_order(data)
 
     return {
         "error": "Unsupported invoice type"

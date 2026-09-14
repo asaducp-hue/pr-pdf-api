@@ -1,0 +1,401 @@
+@page {
+    size: A4;
+    margin: 14mm 12mm 16mm 12mm;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-size: 9.5px;
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   LETTERHEAD  (Head Office | Logo | Factory, then centered title)
+   ========================================================= */
+
+.letterhead {
+    position: relative;
+    width: 100%;
+    min-height: 100px;
+    margin-bottom: 6px;
+}
+
+.letterhead::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.office-block {
+    width: 32%;
+    font-size: 8.5px;
+}
+
+.office-block-left {
+    float: left;
+    text-align: left;
+}
+
+.office-block-right {
+    float: right;
+    width: 40%;
+    text-align: right;
+}
+
+.office-label {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 9.5px;
+    margin-bottom: 2px;
+}
+
+.office-block p {
+    margin: 1px 0;
+    font-size: 8.5px;
+}
+
+.office-name {
+    font-weight: bold;
+    font-size: 10px;
+    margin: 1px 0 2px 0;
+    white-space: nowrap;
+}
+
+.center-stack {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.original-cell {
+    font-style: italic;
+    font-size: 9px;
+    margin-bottom: 4px;
+}
+
+.center-stack img {
+    display: block;
+    margin: 0 auto;
+    height: 58px;
+}
+
+.title-cell {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 6px;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ORDER NO BAR
+   ========================================================= */
+
+.order-no-bar {
+    background-color: #d9d9d9;
+    border: 1px solid #000;
+    text-align: center;
+    padding: 4px 0;
+    font-weight: bold;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.order-no-label {
+    margin-right: 6px;
+}
+
+.customer-name {
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    margin: 6px 0;
+}
+
+
+/* =========================================================
+   DATES ROW
+   ========================================================= */
+
+.dates-row {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 4px;
+}
+
+.dates-block {
+    display: inline-block;
+    text-align: left;
+}
+
+.dates-block .row {
+    margin: 1px 0;
+}
+
+.dates-block .label {
+    font-weight: bold;
+    text-decoration: underline;
+    display: inline-block;
+    min-width: 90px;
+}
+
+.dates-block .value {
+    display: inline-block;
+    min-width: 70px;
+    margin-left: 6px;
+}
+
+
+/* =========================================================
+   SHIP TO + MATERIAL DETAIL SECTION
+   ========================================================= */
+
+.ship-material-section {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    border: 1px solid #000;
+    margin-bottom: 4px;
+}
+
+.ship-to-block {
+    display: table-cell;
+    width: 45%;
+    vertical-align: top;
+    padding: 6px 8px;
+    border-right: 1px solid #000;
+    font-size: 9px;
+}
+
+.ship-to-label {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 4px;
+}
+
+.ship-to-block .row {
+    margin: 2px 0;
+}
+
+.ship-to-block .row.spacer {
+    height: 10px;
+}
+
+.ship-to-block .label {
+    font-weight: bold;
+    display: inline-block;
+    min-width: 55px;
+}
+
+.ship-to-block .value {
+    display: inline-block;
+}
+
+.material-cell {
+    display: table-cell;
+    width: 55%;
+    vertical-align: top;
+    padding: 0;
+    /* Draw the 3 internal column dividers (after Material Detail, after
+       Size, after Guage) as background lines spanning the FULL stretched
+       height of this cell (which matches the taller ship-to-block),
+       instead of relying on the <table>'s own row borders — those only
+       cover the table's natural content height and left a blank,
+       line-less gap below the last row whenever ship-to-block was taller.
+       Offsets below MUST match the column widths in .material-table
+       exactly (155 / 155+85=240 / 240+55=295) or the lines will drift
+       off the true column boundaries. */
+    background-repeat: no-repeat;
+    background-image:
+        linear-gradient(#000, #000),
+        linear-gradient(#000, #000),
+        linear-gradient(#000, #000);
+    background-size: 1px 100%, 1px 100%, 1px 100%;
+    background-position:
+        155px 0,
+        240px 0,
+        295px 0;
+}
+
+.material-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    /* Explicit width = sum of the 4 column widths below (155+85+55+80).
+       table-layout:fixed only strictly honors the first row's cell
+       widths when the table itself has a fixed width — leaving this as
+       "auto" let the browser re-flow the columns slightly, which is
+       what threw the background divider lines out of alignment. */
+    width: 375px;
+}
+
+.material-table th,
+.material-table td {
+    padding: 3px 5px;
+    font-size: 8.5px;
+    text-align: center;
+}
+
+.material-table th {
+    border-bottom: 1px solid #000;
+    font-weight: bold;
+}
+
+.material-table td.col-material,
+.material-table th.col-material {
+    text-align: left;
+}
+
+.material-table .col-material {
+    width: 155px;
+}
+
+.material-table .col-size {
+    width: 85px;
+}
+
+.material-table .col-guage {
+    width: 55px;
+}
+
+.material-table .col-color {
+    width: 80px;
+}
+
+
+/* =========================================================
+   ITEMS TABLE
+   ========================================================= */
+
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-top: 4px;
+    border: 1px solid #000;
+}
+
+.items-table th {
+    border: 1px solid #000;
+    padding: 4px 4px;
+    text-align: center;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+.items-table td {
+    border: 1px solid #000;
+    padding: 4px 4px;
+    font-size: 9px;
+    vertical-align: top;
+    height: 16px;
+}
+
+.items-table .col-no {
+    width: 8%;
+    text-align: center;
+}
+
+.items-table .col-desc {
+    width: 44%;
+}
+
+.items-table .col-size {
+    width: 16%;
+    text-align: center;
+}
+
+.items-table .col-qty {
+    width: 12%;
+    text-align: center;
+}
+
+.items-table .col-remarks {
+    width: 20%;
+}
+
+.items-table .total-row .col-total-label {
+    text-align: center;
+    font-weight: bold;
+}
+
+.items-table .total-row td {
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   FOOTER  (signature line)
+   ========================================================= */
+
+.footer-line {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    font-size: 8.5px;
+    text-align: left;
+}
+
+.footer-block {
+    display: table-cell;
+    width: 50%;
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.footer-row {
+    margin: 1px 0;
+}
+
+.footer-line span.appr-title {
+    font-weight: bold;
+    display: inline-block;
+    min-width: 75px;
+}
+
+.footer-line span.dashes {
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   PRINT SETTINGS
+   ========================================================= */
+
+@media print {
+
+    body {
+        padding: 0;
+    }
+
+    .items-table {
+        page-break-inside: auto;
+    }
+
+    .items-table tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    .ship-material-section {
+        page-break-inside: avoid;
+    }
+
+    .footer-line {
+        page-break-inside: avoid;
+    }
+}

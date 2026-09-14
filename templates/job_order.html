@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Job Order</title>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<div class="letterhead">
+
+    <div class="office-block office-block-left">
+        <div class="office-label">Head Office:</div>
+        <div class="office-name">{{ company_name }}</div>
+        <p>{{ company_address }}</p>
+        <p>Ph: {{ company_phone }}</p>
+        {% if company_email %}<p>Email: {{ company_email }}</p>{% endif %}
+        {% if company_ntn %}<p>NTN: {{ company_ntn }}</p>{% endif %}
+        {% if company_strn %}<p>STRN: {{ company_strn }}</p>{% endif %}
+    </div>
+
+    <div class="office-block office-block-right">
+        <div class="office-label">Factory:</div>
+        <div class="office-name">{{ factory_name | default(company_name) }}</div>
+        <p>{{ factory_address | default(company_address) }}</p>
+        <p>Ph: {{ factory_phone | default(company_phone) }}</p>
+        {% if factory_email or company_email %}<p>Email: {{ factory_email | default(company_email) }}</p>{% endif %}
+        {% if factory_ntn or company_ntn %}<p>NTN: {{ factory_ntn | default(company_ntn) }}</p>{% endif %}
+        {% if factory_strn or company_strn %}<p>STRN: {{ factory_strn | default(company_strn) }}</p>{% endif %}
+    </div>
+
+    <div class="center-stack">
+        <div class="original-cell">({{ copy_label | default("Original") }})</div>
+        {% if logo_path %}<img src="{{ logo_path }}" alt="logo">{% endif %}
+        <div class="title-cell">Job Order</div>
+    </div>
+
+</div>
+
+<!-- ================= ORDER NO BAR ================= -->
+<div class="order-no-bar">
+    <span class="order-no-label">ORDER NO:</span>
+    <span class="order-no-value">{{ order_no }}</span>
+</div>
+
+<div class="customer-name">{{ job_order_entitlement_person }}</div>
+
+<!-- ================= DATES ================= -->
+<div class="dates-row">
+    <div class="dates-block">
+        <div class="row"><span class="label">Order Date</span><span class="value">{{ order_date }}</span></div>
+        <div class="row"><span class="label">Delivery Date</span><span class="value">{{ delivery_date }}</span></div>
+    </div>
+</div>
+
+<!-- ================= SHIP TO + MATERIAL DETAIL ================= -->
+<div class="ship-material-section">
+
+    <div class="ship-to-block">
+        <div class="ship-to-label">Ship To:</div>
+        <div class="row"><span class="label">M/s:</span><span class="value">{{ ship_to_company }}</span></div>
+        <div class="row"><span class="label">Address:</span><span class="value">{{ ship_to_address }}</span></div>
+        <div class="row spacer"></div>
+        <div class="row"><span class="label">Name:</span><span class="value">{{ ship_to_name }}</span></div>
+        <div class="row"><span class="label">Ph:</span><span class="value">{{ ship_to_phone }}</span></div>
+    </div>
+
+    <div class="material-cell">
+        <table class="material-table">
+            <thead>
+                <tr>
+                    <th class="col-material">Material Detail</th>
+                    <th class="col-size">Size</th>
+                    <th class="col-guage">Guage</th>
+                    <th class="col-color">Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-material">{{material}}</td>
+                    <td class="col-size">{{ material_size }}</td>
+                    <td class="col-guage">{{ material_guage }}</td>
+                    <td class="col-color">{{ material_color }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- ================= ITEMS ================= -->
+<table class="items-table">
+    <thead>
+        <tr>
+            <th class="col-no">Sr. No.</th>
+            <th class="col-desc">Description</th>
+            <th class="col-size">Size</th>
+            <th class="col-qty">Qty</th>
+            <th class="col-remarks">Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td class="col-no">{{ item.sr_no }}</td>
+            <td class="col-desc">{{ item.description }}</td>
+            <td class="col-size">{{ item.size }}</td>
+            <td class="col-qty">{{ item.qty }}</td>
+            <td class="col-remarks">{{ item.remarks }}</td>
+        </tr>
+        {% endfor %}
+        <tr class="total-row">
+            <td class="col-total-label" colspan="3">TOTAL</td>
+            <td class="col-qty">{{ total_qty }}</td>
+            <td class="col-remarks"></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ================= FOOTER ================= -->
+<div class="footer-line">
+    <div class="footer-block">
+        <div class="footer-row"><span class="appr-title">Created By:</span> <span class="dashes">{{ created_by }}</span></div>
+        <div class="footer-row"><span class="appr-title">Designation:</span> <span class="dashes">{{ created_by_designation }}</span></div>
+        <div class="footer-row"><span class="appr-title">Mobile:</span> <span class="dashes">{{ created_by_phone }}</span></div>
+    </div>
+    <div class="footer-block">
+        <div class="footer-row"><span class="appr-title">Approved By:</span> <span class="dashes">Khalid Mahmmood</span></div>
+        <div class="footer-row"><span class="appr-title">Designation:</span> <span class="dashes">Chief Executive Officer</span></div>
+        <div class="footer-row"><span class="appr-title">Mobile:</span> <span class="dashes">03007453700</span></div>
+    </div>
+</div>
+
+</body>
+</html>
