@@ -145,11 +145,11 @@ def generate_ogp(data):
 
     attn=data.get(
                 "attn", ""
-            ),
+            )
     
     designation=data.get(
                 "designation", ""
-            ),
+            )
 
     # ---------------------------------------------------------
     # Business Unit
@@ -180,6 +180,9 @@ def generate_ogp(data):
     updated_by_designation = data.get(
         "updated_by_designation", ""
     )
+    created_by_phone = data.get(
+    "created_by_phone", ""
+)
 
     # ---------------------------------------------------------
     # Other Information
@@ -310,6 +313,7 @@ def generate_ogp(data):
         created_by_designation=created_by_designation,
         updated_by=updated_by,
         updated_by_designation=updated_by_designation,
+        created_by_phone=created_by_phone,
 
         # Other
         remarks=remarks,
