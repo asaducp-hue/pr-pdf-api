@@ -143,6 +143,14 @@ def generate_ogp(data):
         "supplier", ""
     )
 
+    attn=data.get(
+                "attn", ""
+            ),
+    
+    designation=data.get(
+                "designation", ""
+            ),
+
     # ---------------------------------------------------------
     # Business Unit
     # ---------------------------------------------------------
@@ -290,6 +298,8 @@ def generate_ogp(data):
 
         # Supplier
         supplier=supplier,
+        attn=attn,
+        designation = designation,
 
         # Business Unit
         business_unit_address=business_unit_address,
