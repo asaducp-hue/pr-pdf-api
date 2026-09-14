@@ -77,10 +77,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="col-material">{{material}}</td>
-                    <td class="col-size">{{ material_size }}</td>
-                    <td class="col-guage">{{ material_guage }}</td>
-                    <td class="col-color">{{ material_color }}</td>
+                    <td class="col-material">{{material | replace('\n', '<br>') | safe }}</td>
+                    <td class="col-size">{{ material_size | replace('\n', '<br>') | safe }}</td>
+                    <td class="col-guage">{{ material_guage | replace('\n', '<br>') | safe }}</td>
+                    <td class="col-color">{{ material_color | replace('\n', '<br>') | safe }}</td>
                 </tr>
             </tbody>
         </table>
@@ -103,10 +103,10 @@
         {% for item in items %}
         <tr>
             <td class="col-no">{{ item.sr_no }}</td>
-            <td class="col-desc">{{ item.description }}</td>
+            <td class="col-desc">{{ item.description | replace('\n', '<br>') | safe }}</td>
             <td class="col-size">{{ item.size }}</td>
             <td class="col-qty">{{ item.qty }}</td>
-            <td class="col-remarks">{{ item.remarks }}</td>
+            <td class="col-remarks">{{ item.remarks | replace('\n', '<br>') | safe }}</td>
         </tr>
         {% endfor %}
         <tr class="total-row">
